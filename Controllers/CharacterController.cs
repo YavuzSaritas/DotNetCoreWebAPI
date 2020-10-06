@@ -24,9 +24,20 @@ namespace DotNetCoreWebAPI.Controllers {
             return Ok(charactersList);
         }
         
-        [HttpGet("Add")]
+        [HttpPost("Add")]
         public async Task<ActionResult> AddCharacter([FromBody]Character newCharacter){
             var character = await _characterService.AddCharacter(newCharacter);
+            return Ok(character);
+        }
+
+        [HttpPut("Update")]
+        public async Task<ActionResult> UpdateCharacter([FromBody]Character newCharacter){
+            var character = await _characterService.UpdateCharacter(newCharacter);
+            return Ok(character);
+        }
+        [HttpDelete("Delete")]
+        public async Task<ActionResult> DeleteCharacter([FromBody]Character newCharacter){
+            var character = await _characterService.DeletedCharacter(newCharacter);
             return Ok(character);
         }
 
