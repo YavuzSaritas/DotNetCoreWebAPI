@@ -9,7 +9,7 @@ namespace DotNetCoreWebAPI.Services
     {
         Task<ServiceResponse<List<CharacterDto>>> GetAllCharacters();
         Task<ServiceResponse<CharacterDto>> GetById(int id);
-        Task<ServiceResponse<Character>> AddCharacter(Character newCharacter);
+        Task<ServiceResponse<CharacterDto>> AddCharacter(Character newCharacter);
         Task<ServiceResponse<Character>> UpdateCharacter(Character character); 
         Task<ServiceResponse<Character>> DeletedCharacter(Character character); 
         

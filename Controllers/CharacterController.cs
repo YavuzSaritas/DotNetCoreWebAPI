@@ -1,9 +1,13 @@
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DotNetCoreWebAPI.Models;
 using DotNetCoreWebAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetCoreWebAPI.Controllers {
+    [Authorize] //Tüm Metotlar için Authorizetion aktif edildi
     [ApiController]
     [Route ("[controller]")]
     public class CharacterController : ControllerBase {
@@ -12,6 +16,7 @@ namespace DotNetCoreWebAPI.Controllers {
             _characterService = characterService;
 
         }
+        [AllowAnonymous] // Authorizetion dışında kalır
         [HttpGet("{id}")]
         public async Task<ActionResult> AddCharacter(int id){
             var character = await _characterService.GetById(id);
@@ -20,6 +25,7 @@ namespace DotNetCoreWebAPI.Controllers {
 
         [HttpGet("GetAll")]
         public async Task<ActionResult> GetAllCharacters(){
+            //var userId = int.Parse(User.Claims.FirstOrDefault(p=>p.Type == ClaimTypes.NameIdentifier).Value); //YOL1 Login olduktan sonra Claims.NameIdentifier'an user ıdye göre karakter getiriliyor
             var charactersList = await _characterService.GetAllCharacters();
             return Ok(charactersList);
         }
