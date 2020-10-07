@@ -25,6 +25,8 @@ namespace DotNetCoreWebAPI.Services
 
         private int GetUserId()=>int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)); //Yol2 Claimsden user id aılınıp işlemler bu id üzerinden yapılacak
 
+        private string GetUserRole()=>_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);//User Rol Alındı. Admin için tüm karakterler listenecek. 
+
         public async Task<ServiceResponse<CharacterDto>> AddCharacter(Character newCharacter)
         {
             var serviceResponse = new ServiceResponse<CharacterDto>();
@@ -38,7 +40,9 @@ namespace DotNetCoreWebAPI.Services
         public async Task<ServiceResponse<List<CharacterDto>>> GetAllCharacters()
         {
             var serviceResponse = new ServiceResponse<List<CharacterDto>>();
-            var characters = await _context.Character.Where(p => !p.IsDeleted && p.User.Id == GetUserId()).ToListAsync();
+            var characters = GetUserRole().Equals("Admin") ?
+                await _context.Character.Where(p=>!p.IsDeleted).ToListAsync() :
+                await _context.Character.Where(p => !p.IsDeleted && p.User.Id == GetUserId()).ToListAsync();
             serviceResponse.Data = (characters.Select(p => _mapper.Map<CharacterDto>(p))).ToList();
             return serviceResponse;
         }

@@ -13,7 +13,8 @@ namespace DotNetCoreWebAPI.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CharacterSkill>().HasKey(cs=>new {cs.CharacterId,cs.SkillId});
+            modelBuilder.Entity<CharacterSkill>().HasKey(cs=>new {cs.CharacterId,cs.SkillId});//Many-To-Many Relation
+            modelBuilder.Entity<User>().Property(user=>user.Role).HasDefaultValue("Player");//Default Value
         }
     }
 }

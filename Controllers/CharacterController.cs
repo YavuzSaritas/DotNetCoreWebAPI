@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetCoreWebAPI.Controllers {
-    [Authorize] //Tüm Metotlar için Authorizetion aktif edildi
+    [Authorize(Roles="Player,Admin")] //Tüm Metotlar için Authorizetion aktif edildi. Player ve Admin Rolü olanlar erişebilecek
     [ApiController]
     [Route ("[controller]")]
     public class CharacterController : ControllerBase {
