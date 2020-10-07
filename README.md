@@ -7,3 +7,4 @@ dotnet ef database update
 dotnet add package Microsoft.IdentityModel.Tokens
 dotnet add package System.IdentityModel.Tokens.Jwt
 dotnet add package Microsof.AspNetCore.Authentication.JwtBearer -v 3.1.3
+JWT-Security API Header : Authorization - Bearer (Login Token)
